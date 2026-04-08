@@ -3,7 +3,7 @@ import "./App.css";
 
 import Home from "./components/Home";
 import Project from "./components/Projects";
-import Classes from "./components/classes";
+import Classes from "./components/Classes";
 import Events from "./components/Events";
 import About from "./components/Information";
 import Programs from "./components/Program";

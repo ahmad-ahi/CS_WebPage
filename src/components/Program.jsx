@@ -1,99 +1,126 @@
-import { useEffect, useState } from "react";
 import "./Program.css";
 
 export default function Programs() {
-  const [data, setData] = useState(null);
-  const [status, setStatus] = useState("loading");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const run = async () => {
-      try {
-        setStatus("loading");
-        setError("");
-
-        const r = await fetch("http://localhost:5174/api/alfred-cs-snapshot", {
-          signal: controller.signal,
-        });
-
-        if (!r.ok) throw new Error(`Fetch failed: ${r.status}`);
-        const json = await r.json();
-
-        if (json?.error) throw new Error(json.error);
-
-        setData(json);
-        setStatus("ok");
-      } catch (e) {
-        if (e.name === "AbortError") return;
-        setStatus("error");
-        setError(e?.message || "Unknown error");
-      }
-    };
-
-    run();
-    return () => controller.abort();
-  }, []);
-
-  if (status === "loading") return <div className="page">Loading program info…</div>;
-  if (status === "error") return <div className="page">Error: {error}</div>;
-  if (!data) return null;
-
-  const bg = data.imageUrl
-    ? `http://localhost:5174/api/img?url=${encodeURIComponent(data.imageUrl)}`
-    : "";
+  const programData = {
+    schoolDivision: "College of Liberal Arts & Sciences",
+    campusLocations: "Main Campus - Alfred, NY",
+    major: "Computer Science (BA)",
+    doubleMajor: "Double Major option(s) offered",
+    minor: "Computer Science",
+    contact: {
+      name: "Amanda Lipnicki",
+      email: "lipnicki@alfred.edu",
+      phone: "(607) 871-2818",
+    },
+    imageUrl:
+      "https://www.alfred.edu/_images/program-detail/snapshot-default.jpg",
+  };
 
   return (
-    <div className="page">
-      <h2 className="pageTitle">Program Snapshot</h2>
+    <section className="programsPage">
+      <div className="programsHero">
+        <div className="programsHeroOverlay"></div>
+        <img
+          className="programsHeroImage"
+          src={programData.imageUrl}
+          alt="Computer Science Program"
+        />
 
-      <div
-        className="snapshot"
-        style={{
-          backgroundImage: bg
-            ? `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), url(${bg})`
-            : undefined,
-        }}
-      >
-        <div className="snapGrid">
-          <div className="snapCol">
-            <div className="snapLabel">School/Division</div>
-            <div className="snapValue">{data.schoolDivision || "—"}</div>
+        <div className="programsHeroContent">
+          <p className="programsEyebrow">Program Overview</p>
+          <h1 className="programsTitle">Computer Science Program</h1>
+          <p className="programsSubtitle">
+            Explore the Computer Science program at Alfred University and learn
+            about the major, minor, double major options, and program contact
+            information.
+          </p>
+        </div>
+      </div>
 
-            <div className="snapLabel mt">Campus Locations</div>
-            <div className="snapValue">{data.campusLocations || "—"}</div>
+      <div className="programsContent">
+        <div className="snapshotCard">
+          <div className="snapshotHeader">
+            <p className="snapshotEyebrow">Alfred CS Snapshot</p>
+            <h2>Program Snapshot</h2>
           </div>
 
-          <div className="snapCol">
-            <div className="snapLabel">Major</div>
-            <div className="snapValue">{data.major || "—"}</div>
+          <div className="snapshotGrid">
+            <div className="snapshotColumn">
+              <div className="snapshotItem">
+                <span className="snapshotLabel">School/Division</span>
+                <span className="snapshotValue">{programData.schoolDivision}</span>
+              </div>
 
-            <div className="snapLabel mt">Double Major</div>
-            <div className="snapValue">{data.doubleMajor || "—"}</div>
+              <div className="snapshotItem">
+                <span className="snapshotLabel">Campus Locations</span>
+                <span className="snapshotValue">{programData.campusLocations}</span>
+              </div>
+            </div>
 
-            <div className="snapLabel mt">Minor</div>
-            <div className="snapValue">{data.minor || "—"}</div>
+            <div className="snapshotColumn">
+              <div className="snapshotItem">
+                <span className="snapshotLabel">Major</span>
+                <span className="snapshotValue">{programData.major}</span>
+              </div>
+
+              <div className="snapshotItem">
+                <span className="snapshotLabel">Double Major</span>
+                <span className="snapshotValue">{programData.doubleMajor}</span>
+              </div>
+
+              <div className="snapshotItem">
+                <span className="snapshotLabel">Minor</span>
+                <span className="snapshotValue">{programData.minor}</span>
+              </div>
+            </div>
+
+            <div className="snapshotColumn">
+              <div className="snapshotItem">
+                <span className="snapshotLabel">Program Contact</span>
+                <span className="snapshotValue">{programData.contact.name}</span>
+              </div>
+
+              <div className="contactLinks">
+                <a href={`mailto:${programData.contact.email}`}>
+                  {programData.contact.email}
+                </a>
+                <a href={`tel:${programData.contact.phone}`}>
+                  {programData.contact.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="programInfoGrid">
+          <div className="programInfoCard">
+            <h3>What You’ll Study</h3>
+            <p>
+              The Computer Science program builds strong foundations in
+              programming, algorithms, systems, software design, and
+              computational thinking.
+            </p>
           </div>
 
-          <div className="snapCol noBorder">
-            <div className="snapLabel">Program Contact</div>
-            <div className="snapValue">{data.contact?.name || "—"}</div>
+          <div className="programInfoCard">
+            <h3>Academic Options</h3>
+            <p>
+              Students can complete the Computer Science major, add it as a
+              double major, or pursue it as a minor depending on their academic
+              goals.
+            </p>
+          </div>
 
-            {data.contact?.email && (
-              <a className="snapLink" href={`mailto:${data.contact.email}`}>
-                {data.contact.email}
-              </a>
-            )}
-
-            {data.contact?.phone && (
-              <a className="snapLink" href={`tel:${data.contact.phone}`}>
-                {data.contact.phone}
-              </a>
-            )}
+          <div className="programInfoCard">
+            <h3>Career Preparation</h3>
+            <p>
+              The program helps students develop technical and problem-solving
+              skills for careers in software development, data, cybersecurity,
+              and related fields.
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

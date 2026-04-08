@@ -1,63 +1,223 @@
-.page {
+.programsPage {
   width: 100%;
-  padding: 24px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4f7fb 0%, #edf2f8 100%);
 }
 
-.pageTitle {
-  margin: 0 0 16px;
-  font-size: 34px;
-  font-weight: 800;
-}
-
-.snapshot {
-  border-radius: 14px;
+.programsHero {
+  position: relative;
+  width: 100%;
+  height: 420px;
   overflow: hidden;
-  padding: 28px;
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  min-height: 280px;
   display: flex;
   align-items: center;
 }
 
-.snapGrid {
+.programsHeroImage {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.programsHeroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(7, 28, 73, 0.88),
+    rgba(12, 47, 115, 0.72)
+  );
+  z-index: 1;
+}
+
+.programsHeroContent {
+  position: absolute;
+  z-index: 2;
+  width: min(1280px, calc(100% - 48px));
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
+
+.programsEyebrow {
+  margin: 0 0 10px;
+  color: #f8d06d;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.programsTitle {
+  margin: 0;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 1;
+  font-weight: 800;
+}
+
+.programsSubtitle {
+  margin: 18px 0 0;
+  max-width: 720px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.programsContent {
+  width: min(1280px, calc(100% - 48px));
+  margin: -70px auto 0;
+  position: relative;
+  z-index: 3;
+  padding-bottom: 48px;
+}
+
+.snapshotCard {
+  background: white;
+  border: 1px solid #dbe4f0;
+  border-radius: 26px;
+  padding: 30px;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.09);
+}
+
+.snapshotHeader {
+  margin-bottom: 24px;
+}
+
+.snapshotEyebrow {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0b3a82;
+}
+
+.snapshotHeader h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.snapshotGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
-.snapCol {
-  padding-right: 18px;
-  border-right: 2px solid rgba(255, 255, 255, 0.35);
+.snapshotColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-right: 22px;
+  border-right: 1px solid #e5e7eb;
 }
 
-.noBorder {
+.snapshotColumn:last-child {
   border-right: none;
   padding-right: 0;
 }
 
-.snapLabel {
+.snapshotItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.snapshotLabel {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
   font-weight: 700;
-  opacity: 0.95;
-  margin-bottom: 8px;
 }
 
-.snapValue {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.25;
+.snapshotValue {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #111827;
+  font-weight: 700;
 }
 
-.snapLink {
-  display: inline-block;
-  margin-top: 12px;
-  color: #fff;
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactLinks a {
+  color: #0b3a82;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contactLinks a:hover {
   text-decoration: underline;
-  font-weight: 600;
 }
 
-.mt {
-  margin-top: 18px;
+.programInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.programInfoCard {
+  background: white;
+  border: 1px solid #dbe4f0;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.programInfoCard h3 {
+  margin: 0 0 12px;
+  font-size: 1.3rem;
+  color: #0b3a82;
+}
+
+.programInfoCard p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+@media (max-width: 1000px) {
+  .snapshotGrid,
+  .programInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .snapshotColumn {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 18px;
+  }
+
+  .snapshotColumn:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .programsHero {
+    height: 340px;
+  }
+
+  .programsContent,
+  .programsHeroContent {
+    width: min(100% - 24px, 1280px);
+  }
+
+  .snapshotCard {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .programInfoCard {
+    padding: 20px;
+    border-radius: 18px;
+  }
 }
