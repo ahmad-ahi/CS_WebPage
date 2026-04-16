@@ -36,7 +36,7 @@ npm run dev
 
 node server.js
 
-## Usage
+## How to start
 After running the project, open a browser and go to:
 
 http://localhost:5173
