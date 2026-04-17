@@ -22,19 +22,23 @@ git clone https://github.com/fv201/CS_WebPage.git
 
 2. Move into the project folder
 
-cd CS_WebPage
+    cd CS_WebPage
 
 3. Install dependencies
 
-npm install
+    npm install
 
 4. Start the frontend development server
 
-npm run dev
+    npm run dev
 
 5. Start the backend server
 
-node server.js
+    node server.js
+
+## Docker
+docker build -t my-eslint .
+docker run my-eslint
 
 ## How to start
 After running the project, open a browser and go to:
